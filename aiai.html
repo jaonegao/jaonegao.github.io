@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FotoMaster - Curso de Fotografia Online</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .course-modules {
+            background-color: #f8f9fa;
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .module-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .module-header h3 {
+            font-size: 1.3rem;
+        }
+        
+        .module-content {
+            padding: 2rem;
+            display: none;
+        }
+        
+        .module-content ul {
+            list-style-position: inside;
+        }
+        
+        .module-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .instructor {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .instructor-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .instructor-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .instructor-info h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .instructor-title {
+            color: var(--secondary);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .testimonials {
+            background-color: #f8f9fa;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--secondary);
+            opacity: 0.2;
+            position: absolute;
+            top: -1.5rem;
+            left: -1rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            color: var(--primary);
+        }
+        
+        .author-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .pricing {
+            text-align: center;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .price {
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 1.5rem 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .faq {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .faq-question {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 1.5rem;
+            display: none;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .cta {
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem;
+            border-radius: 10px;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .instructor {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta {
+                padding: 3rem 1.5rem;
+            }
+            
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Foto<span>Master</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#modulos">Módulos</a></li>
+                    <li><a href="#instrutor">Instrutor</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                    <li><a href="#precos">Preços</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Domine a Arte da Fotografia</h1>
+            <p>O curso online completo para quem quer transformar paixão em profissão ou simplesmente capturar momentos incríveis.</p>
+            <div class="hero-buttons">
+                <a href="#precos" class="btn">Comece Agora</a>
+                <a href="#sobre" class="btn btn-outline">Saiba Mais</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="sobre" class="about">
+        <div class="section-title">
+            <h2>Por Que Escolher Nosso Curso?</h2>
+            <p>FotoMaster não é apenas mais um curso de fotografia. Nós oferecemos uma experiência completa de aprendizado que vai transformar sua maneira de ver e capturar o mundo.</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3>Aulas Práticas</h3>
+                <p>Teoria é importante, mas a prática faz a diferença. Nossas aulas são repletas de exercícios práticos para você aplicar imediatamente.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
+                <h3>Suporte Personalizado</h3>
+                <p>Tire todas suas dúvidas diretamente com nosso time de instrutores e receba feedbacks sobre seus trabalhos.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Acesso Vitalício</h3>
+                <p>Uma vez inscrito, o curso é seu para sempre. Atualizações futuras inclusas sem custo adicional.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Certificado Reconhecido</h3>
+                <p>Ao concluir o curso, receba um certificado que pode abrir portas no mercado profissional.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3>Comunidade Exclusiva</h3>
+                <p>Acesse nosso grupo privado para trocar experiências, receber dicas e participar de desafios fotográficos.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Para Todos os Níveis</h3>
+                <p>Se você está começando ou quer se aperfeiçoar, nosso conteúdo é adaptável ao seu nível de conhecimento.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="modulos" class="course-modules">
+        <div class="section-title">
+            <h2>O Que Você Vai Aprender</h2>
+            <p>Nosso curso foi cuidadosamente estruturado para guiá-lo desde os fundamentos até técnicas avançadas de fotografia.</p>
+        </div>
+        
+        <div class="modules-container">
+            <div class="module">
+                <div class="module-header">
+                    <h3>Módulo 1: Fundamentos da Fotografia</h3>
+                    <span>+</span>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Como funciona sua câmera: obturador, diafragma e ISO</li>
+                        <li>Modos de disparo: automático, prioridades e manual</li>
+                        <li>Composição fotográfica: regra dos terços, linhas guia e mais</li>
+                        <li>Tipos de lentes e quando usar cada uma</li>
+                        <li>Exercícios práticos para fixação do conteúdo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="module">
+                <div class="module-header">
+                    <h3>Módulo 2: Domine a Luz</h3>
+                    <span>+</span>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Entendendo a luz natural: golden hour, blue hour e mais</li>
+                        <li>Técnicas de iluminação artificial: flash e luz contínua</li>
+                        <li>Balanceamento de branco e temperatura de cor</li>
+                        <li>Como criar diferentes atmosferas com a luz</li>
+                        <li>Prática com diferentes cenários de iluminação</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="module">
+                <div class="module-header">
+                    <h3>Módulo 3: Fotografia de Retrato</h3>
+                    <span>+</span>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Enquadramentos clássicos para retratos</li>
+                        <li>Como posicionar e dirigir seus modelos</li>
+                        <li>Técnicas de iluminação para retratos</li>
+                        <li>Fotografia de família e grupos</li>
+                        <li>Retratos em estúdio e ambiente externo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="module">
+                <div class="module-header">
+                    <h3>Módulo 4: Pós-Produção</h3>
+                    <span>+</span>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Introdução ao Lightroom e Photoshop</li>
+                        <li>Workflow profissional de edição</li>
+                        <li>Ajustes básicos: exposição, contraste e cores</li>
+                        <li>Técnicas avançadas de retoque</li>
+                        <li>Exportação para diferentes finalidades</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="module">
+                <div class="module-header">
+                    <h3>Módulo 5: Fotografia como Negócio</h3>
+                    <span>+</span>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Como precificar seus trabalhos</li>
+                        <li>Marketing pessoal para fotógrafos</li>
+                        <li>Construindo um portfólio atraente</li>
+                        <li>Direitos autorais e contratos</li>
+                        <li>Cases de sucesso e dicas dos melhores</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="instrutor" class="instructor-section">
+        <div class="section-title">
+            <h2>Conheça Seu Instrutor</h2>
+            <p>Aprenda com um profissional com mais de 15 anos de experiência no mercado fotográfico.</p>
+        </div>
+        
+        <div class="instructor">
+            <div class="instructor-img">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Carlos Mendes - Instrutor do curso">
+            </div>
+            <div class="instructor-info">
+                <h3>Carlos Mendes</h3>
+                <span class="instructor-title">Fotógrafo Profissional e Educador</span>
+                <p>Com uma carreira que inclui trabalhos para grandes marcas, revistas internacionais e exposições em galerias ao redor do mundo, Carlos Mendes agora dedica parte de seu tempo a compartilhar seu conhecimento com a nova geração de fotógrafos.</p>
+                <p>Seu estilo didático e abordagem prática tornam conceitos complexos acessíveis a todos, sem perder a profundidade técnica necessária para quem busca profissionalização.</p>
+                <p>"Minha missão é ajudar você a ver o mundo de forma diferente através das lentes, e capturar não apenas imagens, mas histórias e emoções."</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="depoimentos" class="testimonials">
+        <div class="section-title">
+            <h2>O Que Nossos Alunos Dizem</h2>
+            <p>Veja como o curso FotoMaster transformou a forma como essas pessoas enxergam e praticam fotografia.</p>
+        </div>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <p>Depois de anos tentando aprender sozinho, finalmente encontrei um curso que realmente ensina de forma clara e prática. Minhas fotos melhoraram 200% em apenas 3 meses!</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Ana Santos">
+                    </div>
+                    <div class="author-info">
+                        <h4>Ana Santos</h4>
+                        <p>Aluna desde 2022</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <p>O módulo de negócios foi o que mais me surpreendeu. Aprendi a precificar meus trabalhos e hoje tenho clientes fixos que pagam bem pelo meu trabalho. Valeu cada centavo!</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Ricardo Oliveira">
+                    </div>
+                    <div class="author-info">
+                        <h4>Ricardo Oliveira</h4>
+                        <p>Fotógrafo Profissional</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <p>Como hobby sempre gostei de fotografia, mas nunca imaginei que poderia aprender tanto em um curso online. A qualidade do conteúdo e o suporte são excepcionais.</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Fernanda Costa">
+                    </div>
+                    <div class="author-info">
+                        <h4>Fernanda Costa</h4>
+                        <p>Fotógrafa Amadora</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="precos" class="pricing">
+        <div class="section-title">
+            <h2>Escolha Seu Plano</h2>
+            <p>Encontre a opção que melhor se adapta às suas necessidades e comece sua jornada fotográfica hoje mesmo.</p>
+        </div>
+        
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Básico</h3>
+                <div class="price">R$ 297 <span>/ à vista</span></div>
+                <ul class="pricing-features">
+                    <li>Acesso a todos os módulos do curso</li>
+                    <li>Suporte via e-mail</li>
+                    <li>Certificado de conclusão</li>
+                    <li>Acesso por 1 ano</li>
+                </ul>
+                <a href="#" class="btn">Quero Este Plano</a>
+            </div>
+            
+            <div class="pricing-card popular">
+                <div class="popular-tag">MAIS POPULAR</div>
+                <h3>Completo</h3>
+                <div class="price">R$ 497 <span>/ à vista</span></div>
+                <ul class="pricing-features">
+                    <li>Tudo do plano Básico</li>
+                    <li>Acesso vitalício</li>
+                    <li>Suporte prioritário</li>
+                    <li>Grupo exclusivo de alunos</li>
+                    <li>E-book de composição avançada</li>
+                    <li>Workshop ao vivo mensal</li>
+                </ul>
+                <a href="#" class="btn">Quero Este Plano</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Premium</h3>
+                <div class="price">R$ 997 <span>/ à vista</span></div>
+                <ul class="pricing-features">
+                    <li>Tudo do plano Completo</li>
+                    <li>Mentoria individual (2 sessões)</li>
+                    <li>Análise de portfólio</li>
+                    <li>Presets exclusivos de edição</li>
+                    <li>Acesso a todos os cursos futuros</li>
+                </ul>
+                <a href="#" class="btn">Quero Este Plano</a>
+            </div>
+        </div>
+        
+        <p style="margin-top: 2rem; color: #7f8c8d;">Pagamento seguro via cartão de crédito, boleto ou PIX. Parcelamento em até 12x.</p>
+    </section>
+    
+    <section class="faq">
+        <div class="section-title">
+            <h2>Perguntas Frequentes</h2>
+            <p>Tire suas dúvidas sobre o curso FotoMaster antes de se inscrever.</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Preciso ter uma câmera profissional para fazer o curso?</h3>
+                    <i>+</i>
+                </div>
+                <div class="faq-answer">
+                    <p>Não! O curso ensina princípios que podem ser aplicados em qualquer equipamento, desde smartphones até câmeras profissionais. Claro que ter uma câmera com controles manuais ajuda, mas não é obrigatório.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Quanto tempo tenho acesso ao curso?</h3>
+                    <i>+</i>
+                </div>
+                <div class="faq-answer">
+                    <p>Depende do plano escolhido. O plano Básico oferece acesso por 1 ano, enquanto os planos Completo e Premium dão acesso vitalício, incluindo atualizações futuras do conteúdo.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>O curso tem certificado?</h3>
+                    <i>+</i>
+                </div>
+                <div class="faq-answer">
+                    <p>Sim! Todos os planos incluem certificado digital de conclusão após finalização de todos os módulos e atividades. O certificado é reconhecido pela ABF (Associação Brasileira de Fotógrafos).</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Posso assistir as aulas no meu ritmo?</h3>
+                    <i>+</i>
+                </div>
+                <div class="faq-answer">
+                    <p>Com certeza! O curso foi desenvolvido para ser totalmente flexível. Você assiste quando e onde quiser, no seu próprio ritmo. As aulas ficam disponíveis 24 horas por dia.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Como funciona o suporte às dúvidas?</h3>
+                    <i>+</i>
+                </div>
+                <div class="faq-answer">
+                    <p>No plano Básico, o suporte é via e-mail com resposta em até 48h. Nos planos Completo e Premium, você tem acesso a um grupo exclusivo onde pode tirar dúvidas diretamente com o instrutor e outros alunos, com respostas muito mais rápidas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <h2>Pronto para Transformar Sua Fotografia?</h2>
+        <p>Junte-se a mais de 5.000 alunos que já descobriram como capturar imagens incríveis com técnicas profissionais. Não espere mais para começar sua jornada fotográfica!</p>
+        <a href="#precos" class="btn">Quero Me Inscrever Agora</a>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>FotoMaster</h3>
+                <p>O curso online completo para quem quer dominar a arte da fotografia, seja como hobby ou profissão.</p>
+                <div class="social-links">
+                    <a href="#">📱</a>
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">▶️</a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#sobre">Sobre o Curso</a></li>
+                    <li><a href="#modulos">Módulos</a></li>
+                    <li><a href="#instrutor">Instrutor</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                    <li><a href="#precos">Preços</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Suporte</h3>
+                <ul>
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contato</h3>
+                <ul>
+                    <li>📧 contato@fotomaster.com</li>
+                    <li>📞 (11) 98765-4321</li>
+                    <li>🏠 São Paulo - SP, Brasil</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 FotoMaster. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Script para os módulos expansíveis
+        document.querySelectorAll('.module-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('span');
+                
+                if(content.style.display === 'block') {
+                    content.style.display = 'none';
+                    icon.textContent = '+';
+                } else {
+                    content.style.display = 'block';
+                    icon.textContent = '-';
+                }
+            });
+        });
+        
+        // Script para o FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                if(answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    icon.textContent = '+';
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    answer.style.display = 'block';
+                    icon.textContent = '-';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+        
+        // Smooth scroll para os links do menu
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
